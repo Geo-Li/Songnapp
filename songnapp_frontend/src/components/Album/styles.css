@@ -1,0 +1,15 @@
+.rounded-border {
+  border: 1.5px solid black;
+  border-radius: 5px;
+}
+
+.expandable-content {
+  max-height: 0px;
+  overflow: hidden;
+  transition: 0.5s ease-in-out;
+}
+
+.expandable-content.expand {
+  max-height: 200px;
+  overflow-y: auto;
+}
