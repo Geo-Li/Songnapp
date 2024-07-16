@@ -5,6 +5,8 @@ import RefreshButton from "../Button/RefreshButton";
 import CreateButton from "../Button/CreateButton";
 import DeleteButton from "../Button/DeleteButton";
 import DeleteConfirmation from "../DeleteConfirmation";
+import UpdateButton from "../Button/UpdateButton";
+import UpdateAlbum from "./UpdateAlbum";
 import SongContainer from "../Song/SongContainer";
 import CreatSong from "../Song/CreatSong";
 
@@ -12,6 +14,7 @@ const AlbumCard = ({ album, refreshAlbums }) => {
   const [currAlbum, setCurrAlbum] = useState(album);
   const [isExpanded, setIsExpanded] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openUpModal, setOpenUpModal] = useState(false);
   const [delOpenModal, setDelOpenModal] = useState(false);
 
   function toggleExpanded() {
@@ -51,7 +54,19 @@ const AlbumCard = ({ album, refreshAlbums }) => {
   return (
     <div className="relative flex flex-col max-w-sm border-2 border-black rounded-md overflow-hidden shadow-lg">
       <div className="absolute top-2 right-2">
-        <DeleteButton content={"Delete"} setDelOpenModal={setDelOpenModal} />
+        <div className="flex flex-row ml-2 space-x-2">
+          <UpdateButton content={"Update"} setOpenModal={setOpenUpModal} />
+          <DeleteButton content={"Delete"} setDelOpenModal={setDelOpenModal} />
+        </div>
+        {openUpModal && (
+          <Modal setOpenModal={setOpenUpModal}>
+            <UpdateAlbum
+              album={album}
+              refreshAlbum={refreshAlbum}
+              setOpenModal={setOpenUpModal}
+            />
+          </Modal>
+        )}
         {delOpenModal &&
           (canDelete() ? (
             <Modal setOpenModal={setDelOpenModal}>
@@ -68,9 +83,9 @@ const AlbumCard = ({ album, refreshAlbums }) => {
           ))}
       </div>
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2 pr-16">{currAlbum.title}</div>
+        <div className="font-bold text-xl mb-2 pt-10">{currAlbum.title}</div>
         <p className="text-gray-700 text-base">Artist: {currAlbum.artist}</p>
-        <p className="text-gray-700 text-base">
+        <p className="text-gray-700 text-base mb-3">
           Release Date: {currAlbum.release_date}
         </p>
         <div className="flex flex-row justify-center items-center space-x-3 mt-2">

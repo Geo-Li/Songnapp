@@ -4,7 +4,8 @@ const DeleteButton = ({ content, toDelete, setDelOpenModal }) => {
     function handleClick() {
         if (toDelete) {
             toDelete();
-        } else if (setDelOpenModal) {
+        }
+        if (setDelOpenModal) {
             setDelOpenModal(true);
         }
     }

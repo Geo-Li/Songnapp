@@ -8,12 +8,13 @@ import UpdateButton from "../Button/UpdateButton";
 import DeleteConfirmation from "../DeleteConfirmation";
 import ReviewList from "./ReviewList";
 import CreateReview from "./CreateReview";
-import UpdateReview from "./UpdateReview";
+import UpdateSong from "../Song/UpdateSong";
 
 const ReviewCard = ({ song, refreshSongs }) => {
   const [currSong, setCurrSong] = useState(song);
   const [isExpanded, setIsExpanded] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openUpModal, setOpenUpModal] = useState(false);
   const [delOpenModal, setDelOpenModal] = useState(false);
 
   function toggleExpanded() {
@@ -54,9 +55,18 @@ const ReviewCard = ({ song, refreshSongs }) => {
     <div className="relative flex flex-col max-w-sm border-2 border-black rounded-md overflow-hidden shadow-lg">
       <div className="absolute top-2 right-2">
         <div className="flex flex-row ml-2 space-x-2">
-          <UpdateButton content={"Update"} setOpenModal={setOpenModal} />
+          <UpdateButton content={"Update"} setOpenModal={setOpenUpModal} />
           <DeleteButton content={"Delete"} setDelOpenModal={setDelOpenModal} />
         </div>
+        {openUpModal && (
+          <Modal setOpenModal={setOpenUpModal}>
+            <UpdateSong
+              song={currSong}
+              refreshSong={refreshSong}
+              setOpenModal={setOpenUpModal}
+            />
+          </Modal>
+        )}
         {delOpenModal &&
           (canDelete() ? (
             <Modal setOpenModal={setDelOpenModal}>
@@ -73,7 +83,7 @@ const ReviewCard = ({ song, refreshSongs }) => {
           ))}
       </div>
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-5 pr-12">{currSong.title}</div>
+        <div className="font-bold text-xl mb-3 pt-10">{currSong.title}</div>
         <div className="flex flex-row justify-center items-center space-x-3 mt-2">
           <RefreshButton
             content={isExpanded ? "Hide Reviews" : "Show Reviews"}

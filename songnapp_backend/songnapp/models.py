@@ -25,10 +25,10 @@ class Song(models.Model):
             
 class Review(models.Model):
     song = models.ForeignKey(Song, related_name="reviews", on_delete=models.CASCADE)
-    review = models.CharField(max_length=1000)
+    content = models.CharField(max_length=1000)
 
     def __str__(self):
         return "review information:"\
             + "\nsong: " + str(self.song)\
-            + "\nreview: " + self.review
+            + "\nreview: " + self.content
     

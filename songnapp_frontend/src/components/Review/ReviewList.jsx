@@ -24,7 +24,7 @@ const ReviewItem = ({ review, refreshSong }) => {
 
   return (
     <div className="flex flex-row items-center justify-between">
-      {review.review}
+      {review.content}
       <div className="flex flex-row scale-75 ml-2 space-x-2">
         <UpdateButton content={"Update"} setOpenModal={setOpenModal} />
         <DeleteButton content={"Delete"} setDelOpenModal={setDelOpenModal} />

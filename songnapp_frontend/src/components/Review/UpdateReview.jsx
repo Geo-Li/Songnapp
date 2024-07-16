@@ -3,11 +3,11 @@ import axios from "axios";
 import "./styles.css";
 
 const UpdateReview = ({ review, refreshSong, setOpenModal }) => {
-  const [currReview, setCurrReview] = useState(review.review);
+  const [content, setContent] = useState(review.content);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const updatedReview = { review: currReview, song: review.song };
+    const updatedReview = { content, song: review.song };
     axios
       .put(`http://127.0.0.1:8000/api/reviews/${review.id}/`, updatedReview)
       .then((response) => {
@@ -27,15 +27,15 @@ const UpdateReview = ({ review, refreshSong, setOpenModal }) => {
       </h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="review">
+          <label className="block text-sm font-bold mb-2" htmlFor="content">
             What's your thoughts?
           </label>
           <textarea
             className="appearance-none rounded-border w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="review"
+            id="content"
             type="text"
-            value={currReview}
-            onChange={(e) => setCurrReview(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             required
           />
         </div>
